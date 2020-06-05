@@ -1,1 +1,3 @@
 rootProject.name = 'algo-stanford'
+
+include 'divide-and-conquer'
