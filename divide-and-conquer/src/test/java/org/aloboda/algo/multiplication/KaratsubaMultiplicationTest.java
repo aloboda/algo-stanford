@@ -38,25 +38,30 @@ public class KaratsubaMultiplicationTest {
         assertThat(result, is("10404"));
     }
 
-
     @Test
     public void when_multiply_64bit_numbers_then_multiply_correctly() {
-        final String multiplier = "3141592653589793238462643383279502884197169399375105820974944592";
-        final String multiplicand = "2718281828459045235360287471352662497757247093699959574966967627";
+        final String multiplier = "3141592653589793238462643383279502884197169399374405820974944592";
+        final String multiplicand = "2718281828459045235360287471352662497757247093779959574966967627";
         // When...
         final String result = this.multiplier.multiply(multiplier, multiplicand).toString();
         // Then...
-        assertThat(result, is("8539734222673567065463550869546574495034888535765114961879601127067743044893204848617875072216249073013374895871952806582723184"));
+        assertThat(result, is("8539734222673567065463550869546574495034888536014539576886863254480002314325618215605218551200611566988893585893052806582723184"));
     }
 
     @Test
-    public void when_multiply_6digit_numbers_then_multiply_correctly() {
+    public void when_multiply_6dbit_numbers_then_multiply_correctly() {
         final String multiplier = "314159";
         final String multiplicand = "271828";
         // When...
         final String result = this.multiplier.multiply(multiplier, multiplicand).toString();
         // Then...
         assertThat(result, is("85397212652"));
+    }
+
+    @Test
+    public void when_multiply_uneven_numbers_then_multiply_correctly() {
+        assertThat(this.multiplier.multiply("77", "109"), is("8393"));
+        assertThat(this.multiplier.multiply("109", "77"), is("8393"));
     }
 
 

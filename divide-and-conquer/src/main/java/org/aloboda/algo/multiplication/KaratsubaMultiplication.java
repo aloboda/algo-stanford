@@ -1,10 +1,12 @@
 package org.aloboda.algo.multiplication;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Preconditions;
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
 
 import static org.aloboda.algo.multiplication.NumberUtil.addTrailZeros;
+import static org.aloboda.algo.multiplication.NumberUtil.alignToHaveTheSameSize;
 
 public class KaratsubaMultiplication {
     private final ThirdGradeAddition addition;
@@ -19,7 +21,15 @@ public class KaratsubaMultiplication {
     }
 
     public CharSequence multiply(final CharSequence multiplier, final CharSequence multiplicand) {
-        if (multiplier.length() <= 4 && multiplicand.length() <= 4) {
+        final Tuple2<CharSequence, CharSequence> multiplierAndMultiplicand = alignToHaveTheSameSize(multiplier, multiplicand);
+        return this.multiplyForSameSize(multiplierAndMultiplicand._1, multiplierAndMultiplicand._2);
+    }
+
+    private CharSequence multiplyForSameSize(final CharSequence multiplier, final CharSequence multiplicand) {
+        final int digitsCount = multiplier.length();
+        Preconditions.checkArgument(digitsCount == multiplicand.length(),
+                "terms should be of the same size, multiplier: %s digits, multiplicand: %s", digitsCount, multiplicand.length());
+        if (digitsCount <= 2) {
             return String.valueOf(Integer.parseInt(multiplier.toString()) * Integer.parseInt(multiplicand.toString()));
         }
         final Tuple2<CharSequence, CharSequence> abTuple = splitInHalf(multiplier);
@@ -34,7 +44,7 @@ public class KaratsubaMultiplication {
                 this.addition.subtract(tuplesProduct, ac),
                 bd
         );
-        final int length = multiplier.length() % 2 == 0 ? multiplier.length() : multiplier.length() + 1;
+        final int length = digitsCount % 2 == 0 ? digitsCount : digitsCount + 1;
         final CharSequence firstPart = addTrailZeros(ac, length);
         final int halfLength = length / 2;
         final CharSequence secondPart = addTrailZeros(sumAdBc, halfLength);

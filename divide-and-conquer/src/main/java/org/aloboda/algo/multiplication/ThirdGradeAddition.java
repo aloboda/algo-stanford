@@ -1,13 +1,12 @@
 package org.aloboda.algo.multiplication;
 
 import com.google.common.base.Preconditions;
-import io.vavr.Tuple;
 import io.vavr.Tuple2;
 
 import java.util.Deque;
 import java.util.LinkedList;
 
-import static org.aloboda.algo.multiplication.NumberUtil.addFrontZeros;
+import static org.aloboda.algo.multiplication.NumberUtil.alignToHaveTheSameSize;
 
 public class ThirdGradeAddition {
 
@@ -40,6 +39,9 @@ public class ThirdGradeAddition {
     }
 
     private static CharSequence inverseSign(final CharSequence number) {
+        if (number.length() == 0) {
+            return number;
+        }
         if (number.charAt(0) == '-') {
             return number.toString().substring(1);
         }
@@ -144,22 +146,8 @@ public class ThirdGradeAddition {
     }
 
     private static byte extractDigit(final CharSequence number, final int index) {
-        try {
-            return Byte.parseByte(String.valueOf(number.charAt(index)));
-        } catch (final NumberFormatException e) {
-            throw new IllegalStateException(String.format("Can't extract digit: %s", number.charAt(index)));
-        }
+        return Byte.parseByte(String.valueOf(number.charAt(index)));
     }
 
-    private static Tuple2<CharSequence, CharSequence> alignToHaveTheSameSize(
-            final CharSequence number1, final CharSequence number2
-    ) {
-        final int delta = number1.length() - number2.length();
-        if (delta > 0) {
-            return Tuple.of(number1, addFrontZeros(number2, delta));
-        } else {
-            return Tuple.of(addFrontZeros(number1, -delta), number2);
-        }
-    }
 
 }

@@ -1,5 +1,8 @@
 package org.aloboda.algo.multiplication;
 
+import io.vavr.Tuple;
+import io.vavr.Tuple2;
+
 import java.util.Arrays;
 
 class NumberUtil {
@@ -13,5 +16,16 @@ class NumberUtil {
         final char[] frontZeros = new char[zerosToAdd];
         Arrays.fill(frontZeros, '0');
         return number + new String(frontZeros);
+    }
+
+    static Tuple2<CharSequence, CharSequence> alignToHaveTheSameSize(
+            final CharSequence number1, final CharSequence number2
+    ) {
+        final int delta = number1.length() - number2.length();
+        if (delta > 0) {
+            return Tuple.of(number1, addFrontZeros(number2, delta));
+        } else {
+            return Tuple.of(addFrontZeros(number1, -delta), number2);
+        }
     }
 }
