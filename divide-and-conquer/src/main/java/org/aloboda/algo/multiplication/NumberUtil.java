@@ -21,11 +21,11 @@ class NumberUtil {
     static Tuple2<CharSequence, CharSequence> alignToHaveTheSameSize(
             final CharSequence number1, final CharSequence number2
     ) {
-        final int delta = number1.length() - number2.length();
-        if (delta > 0) {
-            return Tuple.of(number1, addFrontZeros(number2, delta));
+        final int lengthDelta = number1.length() - number2.length();
+        if (lengthDelta > 0) {
+            return Tuple.of(number1, addFrontZeros(number2, lengthDelta));
         } else {
-            return Tuple.of(addFrontZeros(number1, -delta), number2);
+            return Tuple.of(addFrontZeros(number1, -lengthDelta), number2);
         }
     }
 }
