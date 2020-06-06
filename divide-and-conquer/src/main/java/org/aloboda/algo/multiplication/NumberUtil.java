@@ -2,11 +2,14 @@ package org.aloboda.algo.multiplication;
 
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
+import lombok.experimental.UtilityClass;
 
 import java.util.Arrays;
 
+@UtilityClass
 class NumberUtil {
     static final char MINUS = '-';
+
     static String addFrontZeros(final CharSequence number, final int zerosToAdd) {
         final char[] frontZeros = new char[zerosToAdd];
         Arrays.fill(frontZeros, '0');
