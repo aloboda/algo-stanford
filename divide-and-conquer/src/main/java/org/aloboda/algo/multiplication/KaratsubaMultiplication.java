@@ -9,15 +9,15 @@ import static org.aloboda.algo.multiplication.NumberUtil.addTrailZeros;
 import static org.aloboda.algo.multiplication.NumberUtil.alignToHaveTheSameSize;
 
 public class KaratsubaMultiplication {
-    private final ThirdGradeAddition addition;
+    private final BasicMathOperations basicMathOperations;
 
     @VisibleForTesting
-    KaratsubaMultiplication(final ThirdGradeAddition addition) {
-        this.addition = addition;
+    KaratsubaMultiplication(final BasicMathOperations basicMathOperations) {
+        this.basicMathOperations = basicMathOperations;
     }
 
     KaratsubaMultiplication() {
-        this(new ThirdGradeAddition());
+        this(new BasicMathOperations());
     }
 
     public CharSequence multiply(final CharSequence multiplier, final CharSequence multiplicand) {
@@ -37,19 +37,19 @@ public class KaratsubaMultiplication {
         final CharSequence ac = this.multiply(abTuple._1, cdTuple._1);
         final CharSequence bd = this.multiply(abTuple._2, cdTuple._2);
         final CharSequence tuplesProduct = this.multiply(
-                this.addition.add(abTuple._1, abTuple._2),
-                this.addition.add(cdTuple._1, cdTuple._2)
+                this.basicMathOperations.add(abTuple._1, abTuple._2),
+                this.basicMathOperations.add(cdTuple._1, cdTuple._2)
         );
-        final CharSequence sumAdBc = this.addition.subtract(
-                this.addition.subtract(tuplesProduct, ac),
+        final CharSequence sumAdBc = this.basicMathOperations.subtract(
+                this.basicMathOperations.subtract(tuplesProduct, ac),
                 bd
         );
         final int length = digitsCount % 2 == 0 ? digitsCount : digitsCount + 1;
         final CharSequence firstPart = addTrailZeros(ac, length);
         final int halfLength = length / 2;
         final CharSequence secondPart = addTrailZeros(sumAdBc, halfLength);
-        return this.addition.add(
-                this.addition.add(firstPart, secondPart),
+        return this.basicMathOperations.add(
+                this.basicMathOperations.add(firstPart, secondPart),
                 bd
         );
     }
