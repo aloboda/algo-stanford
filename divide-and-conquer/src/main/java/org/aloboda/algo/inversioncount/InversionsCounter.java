@@ -18,7 +18,7 @@ public class InversionsCounter {
      * Inversion is a number of pairs[i,j] of array indices i<j and {@code array[i]>array[j]}
      * For example: for sorted array, the result is 0.
      */
-    public int countInversions(final int[] array) {
+    public long countInversions(final int[] array) {
         return internalCountInversions(array, 0, array.length).inversionsCount;
     }
 
@@ -42,11 +42,11 @@ public class InversionsCounter {
     private static InversionResult mergeSortedArrays(final InversionResult first, final InversionResult second) {
         int firstIndex = 0;
         int secondIndex = 0;
-        int inversionsCount = first.inversionsCount + second.inversionsCount;
+        long inversionsCount = first.inversionsCount + second.inversionsCount;
         final int[] result = new int[first.result.length + second.result.length];
         for (int i = 0; i < result.length; i++) {
             final int value;
-            if (firstIndex < first.result.length && first.result[firstIndex] <= second.result[secondIndex]) {
+            if (firstIndex < first.result.length && (secondIndex == second.result.length || first.result[firstIndex] <= second.result[secondIndex])) {
                 value = first.result[firstIndex];
                 firstIndex++;
             } else {
@@ -66,7 +66,7 @@ public class InversionsCounter {
     @Value
     private static class InversionResult {
         private final int[] result;
-        private final int inversionsCount;
+        private final long inversionsCount;
 
     }
 }
