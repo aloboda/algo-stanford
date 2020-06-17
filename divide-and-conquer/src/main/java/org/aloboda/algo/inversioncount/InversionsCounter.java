@@ -29,7 +29,7 @@ public class InversionsCounter {
         }
         if (arrayLength == 2) {
             if (array[startIndex] > array[endIndex - 1]) {
-                return new InversionResult(new int[]{array[startIndex], array[endIndex - 1]}, 0);
+                return new InversionResult(new int[]{array[endIndex - 1], array[startIndex]}, 1);
             }
         }
         final boolean even = arrayLength % 2 == 0;

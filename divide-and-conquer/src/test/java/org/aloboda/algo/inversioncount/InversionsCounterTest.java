@@ -35,13 +35,23 @@ public class InversionsCounterTest {
     }
 
     @Test
+    public void when_calculate_inversions_for_sorted_desc_even_dataset_then_return_correct_result() {
+        // Given...
+        final int[] input = {5, 4, 3, 2, 1, 0};
+        // When...
+        final long inversionsCount = this.inversionsCounter.countInversions(input);
+        // Then...
+        assertThat(inversionsCount, is(15L));
+    }
+
+    @Test
     public void when_calc_for_large_dataset_then_return_correct_result() {
         // Given...
         final int[] input = readFromResource("inversion_count/large_sample.txt");
         // When...
         final long inversionsCount = this.inversionsCounter.countInversions(input);
         // Then...
-        assertThat(inversionsCount, is(2391398879L));
+        assertThat(inversionsCount, is(2407905288L));
 
     }
 
