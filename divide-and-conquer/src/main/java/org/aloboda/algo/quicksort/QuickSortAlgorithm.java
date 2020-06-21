@@ -2,6 +2,8 @@ package org.aloboda.algo.quicksort;
 
 import io.vavr.NotImplementedError;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * Represents QuickSort Algorithm
  */
@@ -29,6 +31,7 @@ public class QuickSortAlgorithm {
                 if (array[start] >= array[end - 1]) {
                     swapElements(array, start, end - 1);
                 }
+                return 1;
             }
             return 0;
         }
@@ -73,15 +76,9 @@ public class QuickSortAlgorithm {
                 final int startValue = array[start];
                 final int endValue = array[end - 1];
                 final int length = end - start;
-                final int medianValue;
-                final int medianIndex;
-                if (length % 2 == 0) {
-                    medianIndex = length / 2;
-                    medianValue = array[medianIndex];
-                } else {
-                    medianIndex = length / 2 + 1;
-                    medianValue = array[medianIndex];
-                }
+
+                final int medianIndex = start + (length - 1) / 2;
+                final int medianValue = array[medianIndex];
                 final int[] medianArray = {startValue, endValue, medianValue};
                 sort(medianArray, PivotType.LAST);
                 if (medianArray[1] == startValue) {
@@ -92,6 +89,7 @@ public class QuickSortAlgorithm {
                 }
                 return medianIndex;
             case RANDOM:
+                return ThreadLocalRandom.current().nextInt(start, end - 1);
             default:
                 throw new NotImplementedError();
         }
